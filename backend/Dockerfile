@@ -38,7 +38,7 @@ COPY composer.json* ./
 
 # Install PHP dependencies if composer.json exists
 RUN if [ -f composer.json ]; then \
-    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist -vvv; \
+    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs -vvv; \
     fi
 
 # Copy the rest of the application
