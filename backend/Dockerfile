@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     && docker-php-ext-install pdo_mysql mysqli zip \
-    && a2enmod rewrite \
+    && a2enmod rewrite headers \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Get latest Composer
@@ -20,11 +20,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy existing application directory
-COPY . /var/www/html
+# Copy composer files first for better caching
+COPY composer.json ./
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install PHP dependencies if composer.json exists
+RUN if [ -f composer.json ]; then \
+    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist || \
+    composer update --no-dev --optimize-autoloader --no-interaction --prefer-dist; \
+    fi
+
+# Copy the rest of the application
+COPY . /var/www/html
 
 # Copy Apache configuration
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
