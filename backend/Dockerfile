@@ -8,9 +8,25 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zlib1g-dev \
     zip \
     unzip \
-    && docker-php-ext-install pdo_mysql mysqli zip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+    pdo_mysql \
+    mysqli \
+    zip \
+    gd \
+    dom \
+    xml \
+    simplexml \
+    xmlreader \
+    xmlwriter \
+    fileinfo \
+    iconv \
+    mbstring \
     && a2enmod rewrite headers \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
