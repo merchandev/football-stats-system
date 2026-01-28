@@ -19,13 +19,6 @@ RUN apt-get update && apt-get install -y \
     mysqli \
     zip \
     gd \
-    dom \
-    xml \
-    simplexml \
-    xmlreader \
-    xmlwriter \
-    fileinfo \
-    iconv \
     mbstring \
     && a2enmod rewrite headers \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
