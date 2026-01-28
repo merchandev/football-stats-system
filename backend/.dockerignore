@@ -3,5 +3,4 @@ vendor
 .gitignore
 .env
 .DS_Store
-composer.lock
 *.log

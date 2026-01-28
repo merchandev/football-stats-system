@@ -21,12 +21,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy composer files first for better caching
-COPY composer.json ./
+COPY composer.json* ./
 
 # Install PHP dependencies if composer.json exists
 RUN if [ -f composer.json ]; then \
-    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist || \
-    composer update --no-dev --optimize-autoloader --no-interaction --prefer-dist; \
+    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist; \
     fi
 
 # Copy the rest of the application
