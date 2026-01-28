@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    libicu-dev \
     zlib1g-dev \
     zip \
     unzip \
@@ -34,7 +35,7 @@ COPY composer.json* ./
 
 # Install PHP dependencies if composer.json exists
 RUN if [ -f composer.json ]; then \
-    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist; \
+    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist -vvv; \
     fi
 
 # Copy the rest of the application
