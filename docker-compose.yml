@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: football_stats_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-football_stats}
+      MYSQL_USER: ${MYSQL_USER:-football_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-football_pass}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - football_network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  # PHP Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: football_stats_backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_NAME: ${MYSQL_DATABASE:-football_stats}
+      DB_USER: ${MYSQL_USER:-football_user}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-football_pass}
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "3000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - football_network
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api}
+    container_name: football_stats_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - football_network
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  football_network:
+    driver: bridge

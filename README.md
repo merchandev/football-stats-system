@@ -73,7 +73,31 @@ Un sistema completo de gestión y análisis estadístico para fútbol femenino, 
 
 ## 📦 Instalación
 
-### Requisitos Previos
+### 🐳 Instalación con Docker (Recomendado)
+
+**La forma más rápida de comenzar:**
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/merchandev/football-stats-system.git
+cd football-stats-system
+
+# 2. Configurar variables de entorno (opcional, usa valores por defecto)
+cp .env.example .env
+
+# 3. Iniciar con Docker
+docker-compose up -d
+
+# 4. Acceder a la aplicación
+# Frontend: http://localhost
+# Backend API: http://localhost:3000/api
+```
+
+**Para más información sobre deployment con Docker, ver [DOCKER.md](./DOCKER.md)**
+
+---
+
+### 📚 Instalación Manual (Desarrollo)
 - Node.js 18+
 - PHP 8.0+
 - MySQL 8.0+

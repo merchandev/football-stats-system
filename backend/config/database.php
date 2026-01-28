@@ -5,11 +5,19 @@
  */
 
 class Database {
-    private $host = "localhost";
-    private $db_name = "football_stats";
-    private $username = "root";
-    private $password = "";
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     private $conn;
+
+    public function __construct() {
+        // Use environment variables if available, otherwise use defaults
+        $this->host = getenv('DB_HOST') ?: 'localhost';
+        $this->db_name = getenv('DB_NAME') ?: 'football_stats';
+        $this->username = getenv('DB_USER') ?: 'root';
+        $this->password = getenv('DB_PASSWORD') ?: '';
+    }
 
     /**
      * Get database connection
