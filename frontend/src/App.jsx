@@ -2,6 +2,17 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { useState } from 'react';
 import './App.css';
 
+// Import react-icons
+import {
+  MdDashboard,
+  MdPerson,
+  MdBarChart,
+  MdTrendingUp,
+  MdStar
+} from 'react-icons/md';
+import { IoFootball } from 'react-icons/io5';
+import { FaTrophy, FaShieldAlt } from 'react-icons/fa';
+
 // Pages
 import Dashboard from './pages/Dashboard';
 import Championships from './pages/Championships';
@@ -19,7 +30,7 @@ function NavigationItem({ to, icon, children }) {
   return (
     <Link to={to} className={`nav-item ${isActive ? 'active' : ''}`}>
       <span className="icon">{icon}</span>
-      {children}
+      <span className="nav-text">{children}</span>
     </Link>
   );
 }
@@ -37,32 +48,32 @@ function App() {
             <p>Sistema de Estadísticas de Fútbol Femenino</p>
           </div>
           <nav className="sidebar-nav">
-            <NavigationItem to="/" icon="📊">
+            <NavigationItem to="/" icon={<MdDashboard />}>
               Dashboard
             </NavigationItem>
 
             <div className="nav-section">Gestión de Datos</div>
-            <NavigationItem to="/championships" icon="🏆">
+            <NavigationItem to="/championships" icon={<FaTrophy />}>
               Campeonatos
             </NavigationItem>
-            <NavigationItem to="/teams" icon="🛡️">
+            <NavigationItem to="/teams" icon={<FaShieldAlt />}>
               Equipos
             </NavigationItem>
-            <NavigationItem to="/players" icon="👤">
+            <NavigationItem to="/players" icon={<MdPerson />}>
               Jugadoras
             </NavigationItem>
-            <NavigationItem to="/matches" icon="⚽">
+            <NavigationItem to="/matches" icon={<IoFootball />}>
               Partidos
             </NavigationItem>
 
             <div className="nav-section">Estadísticas</div>
-            <NavigationItem to="/stats/championships" icon="📈">
+            <NavigationItem to="/stats/championships" icon={<MdBarChart />}>
               Por Campeonato
             </NavigationItem>
-            <NavigationItem to="/stats/teams" icon="📉">
+            <NavigationItem to="/stats/teams" icon={<MdTrendingUp />}>
               Por Equipo
             </NavigationItem>
-            <NavigationItem to="/stats/players" icon="🌟">
+            <NavigationItem to="/stats/players" icon={<MdStar />}>
               Por Jugadora
             </NavigationItem>
           </nav>

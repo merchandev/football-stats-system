@@ -156,8 +156,9 @@ body::before {
 }
 
 .sidebar.mini .sidebar-header h1 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
+  padding: 1rem 0;
 }
 
 .sidebar.mini .sidebar-header p {
@@ -179,7 +180,7 @@ body::before {
   font-size: 1.5rem;
 }
 
-.sidebar.mini .nav-item span:not(.icon) {
+.sidebar.mini .nav-item .nav-text {
   display: none;
 }
 
@@ -189,6 +190,11 @@ body::before {
 
 .sidebar.mini .sidebar-toggle-btn {
   justify-content: center;
+  padding: 1rem;
+}
+
+.sidebar.mini .sidebar-toggle-btn .toggle-icon {
+  font-size: 2rem;
 }
 
 .sidebar::-webkit-scrollbar {
