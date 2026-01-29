@@ -37,12 +37,13 @@ WORKDIR /var/www/html
 COPY composer.json* ./
 
 # Install PHP dependencies if composer.json exists
-RUN if [ -f composer.json ]; then \
-    export COMPOSER_MEMORY_LIMIT=-1 && \
-    composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs -vvv 2>&1 || \
-    (echo "Composer install failed. Trying with different flags..." && \
-    composer update --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs -vvv 2>&1); \
-    fi
+# TEMPORARILY DISABLED - Will install manually after deployment works
+# RUN if [ -f composer.json ]; then \
+#     export COMPOSER_MEMORY_LIMIT=-1 && \
+#     composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs -vvv 2>&1 || \
+#     (echo "Composer install failed. Trying with different flags..." && \
+#      composer update --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs -vvv 2>&1); \
+#     fi
 
 # Copy the rest of the application
 COPY . /var/www/html
