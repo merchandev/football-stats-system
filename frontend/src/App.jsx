@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
 
-// Pages (we'll create these)
+// Pages
 import Dashboard from './pages/Dashboard';
 import Championships from './pages/Championships';
 import Teams from './pages/Teams';
@@ -11,6 +11,18 @@ import Matches from './pages/Matches';
 import ChampionshipStats from './pages/ChampionshipStats';
 import TeamStats from './pages/TeamStats';
 import PlayerStats from './pages/PlayerStats';
+
+function NavigationItem({ to, icon, children }) {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
+  return (
+    <Link to={to} className={`nav-item ${isActive ? 'active' : ''}`}>
+      <span className="icon">{icon}</span>
+      {children}
+    </Link>
+  );
+}
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -25,42 +37,34 @@ function App() {
             <p>Sistema de Estadísticas de Fútbol Femenino</p>
           </div>
           <nav className="sidebar-nav">
-            <Link to="/" className="nav-item">
-              <span className="icon">📊</span>
+            <NavigationItem to="/" icon="📊">
               Dashboard
-            </Link>
+            </NavigationItem>
 
             <div className="nav-section">Gestión de Datos</div>
-            <Link to="/championships" className="nav-item">
-              <span className="icon">🏆</span>
+            <NavigationItem to="/championships" icon="🏆">
               Campeonatos
-            </Link>
-            <Link to="/teams" className="nav-item">
-              <span className="icon">🛡️</span>
+            </NavigationItem>
+            <NavigationItem to="/teams" icon="🛡️">
               Equipos
-            </Link>
-            <Link to="/players" className="nav-item">
-              <span className="icon">👤</span>
+            </NavigationItem>
+            <NavigationItem to="/players" icon="👤">
               Jugadoras
-            </Link>
-            <Link to="/matches" className="nav-item">
-              <span className="icon">⚽</span>
+            </NavigationItem>
+            <NavigationItem to="/matches" icon="⚽">
               Partidos
-            </Link>
+            </NavigationItem>
 
             <div className="nav-section">Estadísticas</div>
-            <Link to="/stats/championships" className="nav-item">
-              <span className="icon">📈</span>
+            <NavigationItem to="/stats/championships" icon="📈">
               Por Campeonato
-            </Link>
-            <Link to="/stats/teams" className="nav-item">
-              <span className="icon">📉</span>
+            </NavigationItem>
+            <NavigationItem to="/stats/teams" icon="📉">
               Por Equipo
-            </Link>
-            <Link to="/stats/players" className="nav-item">
-              <span className="icon">🌟</span>
+            </NavigationItem>
+            <NavigationItem to="/stats/players" icon="🌟">
               Por Jugadora
-            </Link>
+            </NavigationItem>
           </nav>
         </aside>
 
@@ -69,6 +73,7 @@ function App() {
           <button
             className="sidebar-toggle"
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Toggle Sidebar"
           >
             {sidebarOpen ? '◀' : '▶'}
           </button>
@@ -83,6 +88,20 @@ function App() {
             <Route path="/stats/teams" element={<TeamStats />} />
             <Route path="/stats/players" element={<PlayerStats />} />
           </Routes>
+
+          {/* Footer with Credits */}
+          <footer className="app-footer">
+            <p className="footer-credit">
+              Desarrollado por{' '}
+              <a
+                href="https://merchan.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Merchan.dev
+              </a>
+            </p>
+          </footer>
         </main>
       </div>
     </Router>
