@@ -30,17 +30,8 @@ function App() {
   return (
     <Router>
       <div className="app">
-        {/* Floating Toggle Button - Always Visible */}
-        <button
-          className="sidebar-toggle-floating"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          aria-label="Toggle Sidebar"
-        >
-          <span className="toggle-icon">{sidebarOpen ? '‹' : '›'}</span>
-        </button>
-
         {/* Sidebar */}
-        <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
+        <aside className={`sidebar ${sidebarOpen ? 'open' : 'mini'}`}>
           <div className="sidebar-header">
             <h1>⚽ FutStats</h1>
             <p>Sistema de Estadísticas de Fútbol Femenino</p>
@@ -76,14 +67,14 @@ function App() {
             </NavigationItem>
           </nav>
 
-          {/* Collapse Button inside Sidebar */}
+          {/* Toggle Button */}
           <button
-            className="sidebar-collapse-btn"
-            onClick={() => setSidebarOpen(false)}
-            aria-label="Cerrar Sidebar"
+            className="sidebar-toggle-btn"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label={sidebarOpen ? "Minimizar menú" : "Expandir menú"}
           >
-            <span className="toggle-icon">‹</span>
-            <span className="toggle-text">Ocultar menú</span>
+            <span className="toggle-icon">{sidebarOpen ? '‹' : '›'}</span>
+            <span className="toggle-text">{sidebarOpen ? 'Minimizar' : 'Expandir'}</span>
           </button>
         </aside>
 
