@@ -30,6 +30,15 @@ function App() {
   return (
     <Router>
       <div className="app">
+        {/* Floating Toggle Button - Always Visible */}
+        <button
+          className="sidebar-toggle-floating"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="Toggle Sidebar"
+        >
+          <span className="toggle-icon">{sidebarOpen ? '‹' : '›'}</span>
+        </button>
+
         {/* Sidebar */}
         <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
           <div className="sidebar-header">
@@ -67,14 +76,14 @@ function App() {
             </NavigationItem>
           </nav>
 
-          {/* Sidebar Toggle Button */}
+          {/* Collapse Button inside Sidebar */}
           <button
-            className="sidebar-toggle-btn"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label="Toggle Sidebar"
+            className="sidebar-collapse-btn"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Cerrar Sidebar"
           >
-            <span className="toggle-icon">{sidebarOpen ? '‹' : '›'}</span>
-            <span className="toggle-text">{sidebarOpen ? 'Ocultar menú' : 'Mostrar menú'}</span>
+            <span className="toggle-icon">‹</span>
+            <span className="toggle-text">Ocultar menú</span>
           </button>
         </aside>
 

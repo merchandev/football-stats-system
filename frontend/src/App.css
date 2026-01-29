@@ -262,8 +262,44 @@ body::before {
   transform: scale(1.1);
 }
 
-/* Sidebar Toggle Button (at bottom of sidebar) */
-.sidebar-toggle-btn {
+/* Floating Toggle Button - Always Visible */
+.sidebar-toggle-floating {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 150;
+  background: var(--gradient-purple);
+  border: none;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-xl), 0 0 30px rgba(124, 58, 237, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 700;
+}
+
+.sidebar-toggle-floating:hover {
+  transform: scale(1.1);
+  box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.5);
+}
+
+.sidebar-toggle-floating:active {
+  transform: scale(0.95);
+}
+
+.sidebar.closed+.sidebar-toggle-floating {
+  /* Ensure button is always visible even when sidebar is closed */
+  display: flex;
+}
+
+/* Sidebar Collapse Button (inside sidebar at bottom) */
+.sidebar-collapse-btn {
   margin: 0;
   padding: 1.25rem 1.5rem;
   background: rgba(124, 58, 237, 0.1);
@@ -278,26 +314,26 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
-  width: 100;
+  width: 100%;
   text-align: center;
 }
 
-.sidebar-toggle-btn:hover {
+.sidebar-collapse-btn:hover {
   background: rgba(124, 58, 237, 0.2);
   color: var(--primary-light);
 }
 
-.sidebar-toggle-btn .toggle-icon {
+.sidebar-collapse-btn .toggle-icon {
   font-size: 1.5rem;
   font-weight: 700;
   transition: transform 0.3s;
 }
 
-.sidebar-toggle-btn:hover .toggle-icon {
+.sidebar-collapse-btn:hover .toggle-icon {
   transform: scale(1.2);
 }
 
-.sidebar-toggle-btn .toggle-text {
+.sidebar-collapse-btn .toggle-text {
   letter-spacing: 0.02em;
 }
 
