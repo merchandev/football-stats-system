@@ -66,18 +66,20 @@ function App() {
               Por Jugadora
             </NavigationItem>
           </nav>
+
+          {/* Sidebar Toggle Button */}
+          <button
+            className="sidebar-toggle-btn"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Toggle Sidebar"
+          >
+            <span className="toggle-icon">{sidebarOpen ? '‹' : '›'}</span>
+            <span className="toggle-text">{sidebarOpen ? 'Ocultar menú' : 'Mostrar menú'}</span>
+          </button>
         </aside>
 
         {/* Main Content */}
         <main className="main-content">
-          <button
-            className="sidebar-toggle"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label="Toggle Sidebar"
-          >
-            {sidebarOpen ? '◀' : '▶'}
-          </button>
-
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/championships" element={<Championships />} />

@@ -16,7 +16,7 @@
   --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
-  
+
   /* Dark Theme */
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
@@ -24,14 +24,14 @@
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
-  
+
   /* Gradients */
   --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-orange: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   --gradient-blue: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   --gradient-emerald: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
   --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -46,6 +46,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -56,15 +57,19 @@
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -74,15 +79,19 @@
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -104,7 +113,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
@@ -136,6 +145,8 @@ body::before {
   overflow-y: auto;
   animation: slideIn 0.5s ease-out;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar.closed {
@@ -181,7 +192,8 @@ body::before {
 }
 
 .sidebar-nav {
-  padding: 1.5rem 0 2rem;
+  padding: 1.5rem 0;
+  flex: 1;
 }
 
 .nav-section {
@@ -250,6 +262,45 @@ body::before {
   transform: scale(1.1);
 }
 
+/* Sidebar Toggle Button (at bottom of sidebar) */
+.sidebar-toggle-btn {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  background: rgba(124, 58, 237, 0.1);
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100;
+  text-align: center;
+}
+
+.sidebar-toggle-btn:hover {
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--primary-light);
+}
+
+.sidebar-toggle-btn .toggle-icon {
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: transform 0.3s;
+}
+
+.sidebar-toggle-btn:hover .toggle-icon {
+  transform: scale(1.2);
+}
+
+.sidebar-toggle-btn .toggle-text {
+  letter-spacing: 0.02em;
+}
+
 /* ==================== MAIN CONTENT ==================== */
 .main-content {
   flex: 1;
@@ -262,38 +313,11 @@ body::before {
   flex-direction: column;
 }
 
-.sidebar.closed + .main-content {
+.sidebar.closed+.main-content {
   margin-left: 0;
 }
 
-.sidebar-toggle {
-  position: fixed;
-  left: 1rem;
-  top: 1rem;
-  z-index: 101;
-  background: var(--gradient-purple);
-  border: none;
-  color: white;
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  cursor: pointer;
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-xl), var(--shadow-glow);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-.sidebar-toggle:hover {
-  transform: scale(1.05) rotate(5deg);
-  box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.4);
-}
-
-.sidebar-toggle:active {
-  transform: scale(0.95);
-}
 
 /* ==================== PAGE COMPONENTS ==================== */
 .page-container {
@@ -345,12 +369,10 @@ body::before {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
   transition: left 0.5s;
 }
 
@@ -592,8 +614,20 @@ tr:last-child td {
 
 /* ==================== LOADING ==================== */
 .loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
   text-align: center;
   padding: 4rem 2rem;
+}
+
+.loading p {
+  margin-top: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  font-weight: 500;
 }
 
 .spinner {
@@ -607,7 +641,9 @@ tr:last-child td {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ==================== ERROR MESSAGE ==================== */
@@ -680,7 +716,7 @@ tr:last-child td {
   .sidebar {
     width: 280px;
   }
-  
+
   .main-content {
     margin-left: 280px;
   }
@@ -691,24 +727,24 @@ tr:last-child td {
     width: 100%;
     transform: translateX(-100%);
   }
-  
+
   .sidebar.open {
     transform: translateX(0);
   }
-  
+
   .main-content {
     margin-left: 0;
     padding: 1.5rem;
   }
-  
+
   .stat-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .sidebar-toggle {
     left: 1rem;
     top: 1rem;
@@ -735,12 +771,34 @@ tr:last-child td {
   justify-content: space-between;
 }
 
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
 
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 2rem;
+}
+
+.mt-1 {
+  margin-top: 0.5rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.mt-3 {
+  margin-top: 1.5rem;
+}
+
+.mt-4 {
+  margin-top: 2rem;
+}
